@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Platform,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Fontisto } from "@expo/vector-icons";
@@ -45,18 +46,28 @@ export default function App() {
   };
   // console.log(toDos);
   const deleteToDo = async (key) => {
-    Alert.alert("Delete To Do", "Are you sure?", [
-      { text: "Cancel" },
-      {
-        text: "I'm sure",
-        onPress: async () => {
-          const newToDos = { ...toDos };
-          delete newToDos[key];
-          setToDos(newToDos);
-          await saveToDos(newToDos);
+    if (Platform.OS === "web") {
+      const ok = confirm("Do you want to delete this To Do?");
+      if (ok) {
+        const newToDos = { ...toDos };
+        delete newToDos[key];
+        setToDos(newToDos);
+        await saveToDos(newToDos);
+      }
+    } else {
+      Alert.alert("Delete To Do", "Are you sure?", [
+        { text: "Cancel" },
+        {
+          text: "I'm sure",
+          onPress: async () => {
+            const newToDos = { ...toDos };
+            delete newToDos[key];
+            setToDos(newToDos);
+            await saveToDos(newToDos);
+          },
         },
-      },
-    ]);
+      ]);
+    }
   };
 
   return (
@@ -65,7 +76,9 @@ export default function App() {
         <TouchableOpacity onPress={work}>
           <Text
             style={{
-              ...styles.btnText,
+              color: "white",
+              fontSize: 38,
+              fontWeight: "500",
               color: working ? "white" : theme.grey,
             }}>
             Work
@@ -74,7 +87,9 @@ export default function App() {
         <TouchableOpacity onPress={travel}>
           <Text
             style={{
-              ...styles.btnText,
+              color: "white",
+              fontSize: 38,
+              fontWeight: "500",
               color: !working ? "white" : theme.grey,
             }}>
             Travel
@@ -115,11 +130,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 100,
     justifyContent: "space-between",
-  },
-  btnText: {
-    color: "white",
-    fontSize: 38,
-    fontWeight: "500",
   },
   input: {
     backgroundColor: "white",
