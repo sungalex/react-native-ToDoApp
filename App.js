@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { theme } from "./colors";
 
@@ -51,8 +52,16 @@ export default function App() {
         onSubmitEditing={addToDo}
         onChangeText={onChangeText}
         returnKeyType="done"
+        value={text}
         placeholder={working ? "Add a To Do" : "Where do you want to go"}
         style={styles.input}></TextInput>
+      <ScrollView>
+        {Object.keys(toDos).map((key) => (
+          <View key={key} style={styles.todo}>
+            <Text style={styles.todoText}>{toDos[key].text}</Text>
+          </View>
+        ))}
+      </ScrollView>
       <StatusBar style="light" />
     </View>
   );
@@ -79,7 +88,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 30,
-    marginTop: 20,
+    marginVertical: 20,
     fontSize: 18,
+  },
+  todo: {
+    backgroundColor: theme.grey,
+    marginBottom: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+  },
+  todoText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
   },
 });
