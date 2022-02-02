@@ -8,6 +8,7 @@
 
 ```bash
 npm install --global expo-cli
+expo install @react-native-async-storage/async-storage
 ```
 
 ## Create EXpo App
