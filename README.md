@@ -26,3 +26,9 @@ expo login
 
 npm run start
 ```
+
+## Code Challenge
+
+- [ ] Completed ToDo Checking
+
+- [ ] Editing ToDo
