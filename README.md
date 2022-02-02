@@ -27,6 +27,10 @@ expo login
 npm run start
 ```
 
+## Publishing to Expo
+
+- [React Native To Do App](https://expo.dev/@sungalex/rntodo)
+
 ## Code Challenge
 
 - [ ] Completed ToDo Checking
